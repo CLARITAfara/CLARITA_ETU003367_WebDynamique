@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajouter un Livre</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f3e5f5, #ede7f6);
+            margin: 0;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            color: #6a1b9a;
+            margin-bottom: 30px;
+        }
+
+        form {
+            max-width: 600px;
+            background: #fff;
+            margin: auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #4a148c;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        textarea,
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1em;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+
+        textarea {
+            min-height: 100px;
+        }
+
+        button {
+            margin-top: 25px;
+            width: 100%;
+            padding: 14px;
+            background-color: #8e24aa;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #6a1b9a;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            font-weight: 600;
+            color: #6a1b9a;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>Ajouter un nouveau livre</h2>
+    <form th:action="@{/livres/ajouter}" th:object="${livre}" method="post" enctype="multipart/form-data">
+        <label for="titre">Titre:</label>
+        <input type="text" th:field="*{titre}" required>
+
+        <label for="auteur">Auteur:</label>
+        <input type="text" th:field="*{auteur}">
+
+        <label for="isbn">ISBN:</label>
+        <input type="text" th:field="*{isbn}">
+
+        <label for="datePublication">Date de publication:</label>
+        <input type="date" th:field="*{datePublication}">
+
+        <label for="ageRestriction">Restriction d'âge:</label>
+        <input type="number" th:field="*{ageRestriction}">
+
+        <label for="nbrExmp">Nombre d'exemplaires :</label>
+        <input type="number" th:field="*{nbrExmp}" min="1" value="1" required>
+
+        <label for="description">Description :</label>
+        <textarea th:field="*{description}"></textarea>
+
+        <label for="imageUrl">Image :</label>
+        <input type="file" name="imageFile" accept="image/*">
+
+        <button type="submit">Ajouter</button>
+    </form>
+
+    <a th:href="@{/livres/liste}">Voir la liste des livres</a>
+</body>
+</html>

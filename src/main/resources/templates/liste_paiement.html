@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Liste des Paiements</title>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #fafafa;
+            margin: 0;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            color: #4a148c;
+            margin-bottom: 30px;
+        }
+
+        a {
+            display: inline-block;
+            margin-bottom: 25px;
+            padding: 12px 25px;
+            background-color: #7b1fa2;
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(123,31,162,0.3);
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #4a148c;
+            box-shadow: 0 6px 12px rgba(74,20,140,0.5);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 12px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        thead {
+            background-color: #7b1fa2;
+            color: #fff;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f7fc;
+        }
+
+        tbody tr:hover {
+            background-color: #ede7f6;
+            transition: background-color 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+<h2>Liste des Paiements</h2>
+<a href="/paiements/ajouter">Ajouter un paiement</a>
+<table>
+    <thead>
+    <tr>
+        <th>Adhérent</th>
+        <th>Type Paiement</th>
+        <th>Date</th>
+        <th>Montant</th>
+        <th>Statut</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="p : ${paiements}">
+        <td th:text="${p.adherent.nom}"></td>
+        <td th:text="${p.typePayement.typeName}"></td>
+        <td th:text="${p.datePaiement}"></td>
+        <td th:text="${p.montantPaye}"></td>
+        <td th:text="${p.statutPaiement?.nomStatut}">-</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

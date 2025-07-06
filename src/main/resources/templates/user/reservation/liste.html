@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des Réservations</title>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f3e5f5, #ede7f6);
+            margin: 0;
+            padding: 40px;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            color: #6a1b9a;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        thead {
+            background-color: #6a1b9a;
+            color: white;
+        }
+
+        th, td {
+            padding: 14px 16px;
+            text-align: left;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f3e5f5;
+        }
+
+        tbody tr:hover {
+            background-color: #e1bee7;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        td span {
+            font-weight: bold;
+        }
+
+        .status {
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 15px;
+            display: inline-block;
+        }
+
+        .validate-yes {
+            background-color: #c8e6c9;
+            color: #2e7d32;
+        }
+
+        .validate-no {
+            background-color: #ffcdd2;
+            color: #c62828;
+        }
+    </style>
+</head>
+<body>
+    <h2>Liste des Réservations</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Adhérent</th>
+                <th>Exemplaire</th>
+                <th>Date de Création</th>
+                <th>Date de Réservation</th>
+                <th>Statut</th>
+                <th>Validé</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="res : ${reservations}">
+                <td th:text="${res.id}">1</td>
+                <td th:text="${res.adherent.nom}">Nom Adhérent</td>
+                <td th:text="${res.exemplaire.codeExemplaire}">Code</td>
+                <td th:text="${res.dateCreated}">2025-01-01</td>
+                <td th:text="${res.dateReservation}">2025-01-02</td>
+                <td th:text="${res.statut != null ? res.statut.nomStatut : 'Non défini'}">Statut</td>
+                <td>
+                    <span th:text="${res.isValidate ? 'Oui' : 'Non'}"
+                          th:classappend="${res.isValidate} ? 'status validate-yes' : 'status validate-no'">
+                        Non
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

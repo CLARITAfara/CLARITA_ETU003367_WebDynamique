@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Liste fonctionnalité</title>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #fafafa;
+            margin: 0;
+            padding: 40px 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        h2 {
+            color: #4a148c;
+            margin-bottom: 40px;
+            font-weight: 700;
+            font-size: 2.5em;
+        }
+
+        a {
+            display: block;
+            max-width: 300px;
+            margin: 15px auto;
+            padding: 14px 20px;
+            background-color: #7b1fa2;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1em;
+            text-decoration: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(123,31,162,0.3);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #4a148c;
+            box-shadow: 0 6px 12px rgba(74,20,140,0.5);
+        }
+
+        br {
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Liste des fonctionnalités</h2>
+    <a th:href="@{/type-adherents/liste}">Type Adhérent</a>
+    <a th:href="@{/adherents/listeAdherent}">Adhérent</a>
+    <a th:href="@{/livres/liste}">Gestion Livre</a>
+    <a th:href="@{/type-payements/liste}">Type Paiement</a>
+    <a th:href="@{/paiements}">Gestion Paiement</a>
+    <a th:href="@{/prets/liste}">Liste Prêts en cours</a>
+
+</body>
+</html>

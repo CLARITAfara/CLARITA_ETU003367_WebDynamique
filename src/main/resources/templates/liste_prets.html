@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Prêts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f3e5f5, #ede7f6);
+            margin: 0;
+            padding: 40px;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            color: #6a1b9a;
+            margin-bottom: 30px;
+        }
+
+        .message {
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            max-width: 700px;
+            margin: 10px auto;
+        }
+
+        .error {
+            background-color: #ffebee;
+            color: #c62828;
+            border-left: 5px solid #f44336;
+        }
+
+        .success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border-left: 5px solid #4caf50;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        thead {
+            background-color: #6a1b9a;
+            color: white;
+        }
+
+        th, td {
+            padding: 14px 16px;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f3e5f5;
+        }
+
+        tbody tr:hover {
+            background-color: #e1bee7;
+            transition: 0.2s;
+        }
+
+        button {
+            background-color: #8e24aa;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #6a1b9a;
+        }
+
+        input[type="date"] {
+            padding: 6px 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        a {
+            display: block;
+            margin: 30px auto 0 auto;
+            text-align: center;
+            font-weight: bold;
+            color: #6a1b9a;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Messages d'erreur -->
+    <div th:if="${errorMessage}" class="message error">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
+    <!-- Messages de succès -->
+    <div th:if="${successMessage}" class="message success">
+        <p th:text="${successMessage}"></p>
+    </div>
+
+    <h2>Liste des prêts</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Adhérent</th>
+                <th>Exemplaire</th>
+                <th>Date du prêt</th>
+                <th>Date retour prévue</th>
+                <th>Date retour réelle</th>
+                <th>Type de prêt</th>
+                <th>Prolongé</th>
+                <th>Statut</th>
+                <th>Retourner</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="pret : ${prets}">
+                <td th:text="${pret.id}"></td>
+                <td th:text="${pret.adherent.nom + ' ' + pret.adherent.prenom}"></td>
+                <td th:text="${pret.exemplaire.codeExemplaire}"></td>
+                <td th:text="${pret.datePret}"></td>
+                <td th:text="${pret.dateRetourPrevue}"></td>
+                <td th:text="${pret.dateRetourReelle != null ? pret.dateRetourReelle : '---'}"></td>
+                <td th:text="${pret.typePret.nomTypePret}"></td>
+                <td th:text="${pret.estProlonge == true ? 'Oui' : 'Non'}"></td>
+                <td th:text="${pret.statut != null ? pret.statut.nomStatut : '---'}"></td>
+
+                <td>
+                    <div th:if="${pret.statut != null and pret.statut.nomStatut != 'rendu'}">
+                        <form th:action="@{'/prets/rendrelivre/' + ${pret.id}}" method="get">
+                            <input type="date" name="dateRetourReelle" required />
+                            <button type="submit">Valider</button>
+                        </form>
+                    </div>
+                    <div th:unless="${pret.statut != null and pret.statut.nomStatut != 'rendu'}">
+                        ---
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{/livres/liste}">← Ajouter un nouveau prêt</a>
+
+</body>
+</html>

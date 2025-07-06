@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Types de Paiement</title>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #fafafa;
+            margin: 0;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            color: #4a148c;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 12px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        thead {
+            background-color: #7b1fa2;
+            color: #fff;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd; /* bordure fine et discrète */
+            text-align: left;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f7fc;
+        }
+
+        tbody tr:hover {
+            background-color: #ede7f6;
+            transition: background-color 0.3s ease;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 25px;
+            background-color: #7b1fa2;
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(123,31,162,0.3);
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #4a148c;
+            box-shadow: 0 6px 12px rgba(74,20,140,0.5);
+        }
+    </style>
+</head>
+<body>
+    <h2>Liste des Types de Paiement</h2>
+    
+    <a href="/type-payements/ajouter">Ajouter un nouveau type</a>
+    <br><br>
+    <table border="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Montant</th>
+                <th>Durée (jours)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="type : ${typePayements}">
+                <td th:text="${type.id}"></td>
+                <td th:text="${type.typeName}"></td>
+                <td th:text="${type.montantPayement}"></td>
+                <td th:text="${type.durreValidite}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

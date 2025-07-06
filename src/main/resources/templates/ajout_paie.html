@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Ajouter un Paiement</title>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #fafafa;
+            margin: 0;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            color: #4a148c;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px 25px;
+            box-shadow: 0 0 12px rgba(0,0,0,0.05);
+            border-radius: 8px;
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 8px 0;
+            font-weight: 600;
+            color: #4a148c;
+        }
+
+        select, input[type="date"] {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        select:focus, input[type="date"]:focus {
+            border-color: #7b1fa2;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px 0;
+            background-color: #7b1fa2;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(123,31,162,0.3);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #4a148c;
+            box-shadow: 0 6px 12px rgba(74,20,140,0.5);
+        }
+    </style>
+</head>
+<body>
+<h2>Ajouter un Paiement</h2>
+
+<form th:action="@{/paiements/ajouter}" th:object="${paiement}" method="post">
+    <label>Sélection d’un adhérent :</label>
+    <select th:field="*{adherent}">
+      <option th:each="a : ${adherents}" th:value="${a.id}" th:text="${a.nom}"></option>
+    </select>
+
+    <label>Sélection d’un type de paiement :</label>
+    <select th:field="*{typePayement}">
+      <option th:each="t : ${types}" th:value="${t.id}" th:text="${t.typeName}"></option>
+    </select>
+
+    <label>Date de paiement :</label>
+    <input type="date" th:field="*{datePaiement}" />
+
+    <button type="submit">Enregistrer</button>
+</form>
+</body>
+</html>
