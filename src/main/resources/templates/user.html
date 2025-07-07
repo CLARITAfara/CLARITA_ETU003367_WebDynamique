@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Ajouter un Adhérent</title>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #fafafa;
+            margin: 0;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            color: #4a148c;
+            margin-bottom: 30px;
+        }
+
+        form {
+            max-width: 480px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 12px rgba(0,0,0,0.05);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #5e35b1;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        input[type="date"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #7b1fa2;
+            box-shadow: 0 0 6px rgba(123,31,162,0.4);
+        }
+
+        button {
+            width: 100%;
+            background-color: #7b1fa2;
+            color: white;
+            font-weight: 700;
+            border: none;
+            padding: 14px;
+            font-size: 1.1em;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(123,31,162,0.3);
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #4a148c;
+            box-shadow: 0 6px 12px rgba(74,20,140,0.5);
+        }
+    </style>
+</head>
+<body>
+    <h2>Ajouter un nouvel adhérent</h2>
+
+    <form th:action="@{/adherents/ajouter}" th:object="${adherent}" method="post">
+
+        <label for="nom">Nom :</label>
+        <input type="text" th:field="*{nom}" required />
+
+        <label for="prenom">Prénom :</label>
+        <input type="text" th:field="*{prenom}" />
+
+        <label for="password">Mot de passe :</label>
+        <input type="password" th:field="*{password}" required />
+
+        <label for="dateNaissance">Date de naissance :</label>
+        <input type="date" th:field="*{dateNaissance}" required />
+
+        <label for="dateInscription">Date d'inscription :</label>
+        <input type="date" th:field="*{dateInscription}" required />
+
+        <label for="typeAdherent">Type d’adhérent :</label>
+        <select th:field="*{typeAdherent}" required>
+            <option th:each="type : ${types}" 
+                    th:value="${type.id}" 
+                    th:text="${type.nomType}">
+            </option>
+        </select>
+
+        <button type="submit">Ajouter</button>
+    </form>
+</body>
+</html>

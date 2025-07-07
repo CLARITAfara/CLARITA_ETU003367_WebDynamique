@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Livres</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f0ff;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        
+        h2 {
+            color: #6a3093;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .nav-links {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .nav-links a {
+            display: inline-block;
+            margin: 0 15px;
+            padding: 10px 20px;
+            background-color: #8e44ad;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .nav-links a:hover {
+            background-color: #6a3093;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .message {
+            padding: 15px;
+            margin: 20px auto;
+            border-radius: 5px;
+            text-align: center;
+            max-width: 600px;
+        }
+        
+        .error {
+            background-color: #ffebee;
+            border-left: 5px solid #f44336;
+        }
+        
+        .success {
+            background-color: #e8f5e9;
+            border-left: 5px solid #4caf50;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        thead tr {
+            background-color: #6a3093;
+            color: white;
+            text-align: left;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+        }
+        
+        tbody tr {
+            border-bottom: 1px solid #dddddd;
+            transition: all 0.2s;
+        }
+        
+        tbody tr:nth-of-type(even) {
+            background-color: #f3e5ff;
+        }
+        
+        tbody tr:last-of-type {
+            border-bottom: 2px solid #6a3093;
+        }
+        
+        tbody tr:hover {
+            background-color: #e1bee7;
+            transform: scale(1.01);
+        }
+        
+        a {
+            color: #6a3093;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .action-link {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #9c27b0;
+            color: white;
+            border-radius: 3px;
+            transition: all 0.2s;
+        }
+        
+        .action-link:hover {
+            background-color: #7b1fa2;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>Bibliothèque numérique</h2>
+    
+    <div class="nav-links">
+        <a th:href="@{/prets/listeUser}">Voir mes prêts en cours</a>
+        <a th:href="@{/reservations/user}">Voir mes réservations en cours</a>
+    </div>
+
+    <!-- Messages d'erreur -->
+    <div th:if="${errorMessage}" class="message error">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
+    <!-- Messages de succès -->
+    <div th:if="${successMessage}" class="message success">
+        <p th:text="${successMessage}"></p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titre</th>
+                <th>Auteur</th>
+                <th>ISBN</th>
+                <th>Date publication</th>
+                <th>Restriction d'âge</th>
+                <th>Créé le</th>
+                <th>Modifié le</th>
+                <th>Nbr Exemplaire</th>
+                <th>Exemplaires</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="livre : ${livres}">
+                <td th:text="${livre.id}"></td>
+                <td th:text="${livre.titre}"></td>
+                <td th:text="${livre.auteur}"></td>
+                <td th:text="${livre.isbn}"></td>
+                <td th:text="${livre.datePublication}"></td>
+                <td th:text="${livre.ageRestriction}"></td>
+                <td th:text="${livre.createdAt}"></td>
+                <td th:text="${livre.updatedAt}"></td>
+                <td th:text="${livre.nbrExmp}"></td>
+                <td>
+                    <a class="action-link" th:href="@{'/livres/livreUser/' + ${livre.id}}">Voir</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Ajouter un Type Adhérent</title>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #fafafa;
+            margin: 0;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            color: #4a148c;
+            margin-bottom: 30px;
+        }
+
+        form {
+            max-width: 480px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 12px rgba(0,0,0,0.05);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #5e35b1;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #7b1fa2;
+            box-shadow: 0 0 6px rgba(123,31,162,0.4);
+        }
+
+        button {
+            width: 100%;
+            background-color: #7b1fa2;
+            color: white;
+            font-weight: 700;
+            border: none;
+            padding: 14px;
+            font-size: 1.1em;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(123,31,162,0.3);
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #4a148c;
+            box-shadow: 0 6px 12px rgba(74,20,140,0.5);
+        }
+    </style>
+</head>
+<body>
+    <h2>Ajouter un Type d’Adhérent</h2>
+
+    <form th:action="@{/type-adherents/ajouter}" th:object="${typeAdherent}" method="post">
+        <label for="nomType">Nom du type :</label>
+        <input type="text" id="nomType" th:field="*{nomType}" required />
+
+        <label for="quotaMaxPret">Quota max prêt :</label>
+        <input type="number" id="quotaMaxPret" th:field="*{quotaMaxPret}" required />
+
+        <label for="dureeMaxPret">Durée max prêt :</label>
+        <input type="number" id="dureeMaxPret" th:field="*{dureeMaxPret}" required />
+
+        <label for="quotaMaxProlongement">Quota max prolongement :</label>
+        <input type="number" id="quotaMaxProlongement" th:field="*{quotaMaxProlongement}" required />
+
+        <label for="dureeMaxProlongement">Durée max prolongement :</label>
+        <input type="number" id="dureeMaxProlongement" th:field="*{dureeMaxProlongement}" required />
+
+        <button type="submit">Enregistrer</button>
+    </form>
+</body>
+</html>
